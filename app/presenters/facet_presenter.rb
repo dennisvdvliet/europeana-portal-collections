@@ -13,6 +13,8 @@ class FacetPresenter
     class_for_facet(facet_config).new(facet, controller, blacklight_config)
   end
 
+  include Blacklight::FacetsHelperBehavior
+
   def self.class_for_facet(facet_config)
     case
     when facet_config.hierarchical && !facet_config.parent
@@ -33,11 +35,11 @@ class FacetPresenter
     @blacklight_config = blacklight_config
     @controller = controller
     @response = controller.instance_variable_get(:@response)
+    @paginator = facet_paginator(facet_config, facet)
   end
 
   def display(options = {})
-    options = options.reverse_merge(count: 5)
-    unhidden_items, hidden_items = split_items(options[:count])
+    unhidden_items, hidden_items = split_items(@paginator.limit)
     {
       title: facet_label(@facet.name),
       select_one: facet_config.single,

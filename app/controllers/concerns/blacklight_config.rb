@@ -53,26 +53,28 @@ module BlacklightConfig
       config.add_index_field 'dataProvider'
       config.add_index_field 'edmIsShownAt'
 
+      config.default_facet_limit = 5
+
       # Facet fields in the order they should be displayed.
       # config.add_facet_field 'COLLECTION', query: collections_query_facet, single: true
-      config.add_facet_field 'TYPE', hierarchical: true
-      config.add_facet_field 'IMAGE_COLOUR', parent: %w(TYPE IMAGE)
+      config.add_facet_field 'TYPE', hierarchical: true, limit: true
+      config.add_facet_field 'IMAGE_COLOUR', parent: %w(TYPE IMAGE), limit: true
       config.add_facet_field 'COLOURPALETTE', colour: true, hierarchical: true, parent: %w(TYPE IMAGE), limit: 20
-      config.add_facet_field 'IMAGE_ASPECTRATIO', hierarchical: true, parent: %w(TYPE IMAGE)
-      config.add_facet_field 'IMAGE_SIZE', hierarchical: true, parent: %w(TYPE IMAGE)
-      config.add_facet_field 'SOUND_DURATION', hierarchical: true, parent: %w(TYPE SOUND)
-      config.add_facet_field 'SOUND_HQ', hierarchical: true, parent: %w(TYPE SOUND)
-      config.add_facet_field 'TEXT_FULLTEXT', hierarchical: true, parent: %w(TYPE TEXT)
-      config.add_facet_field 'VIDEO_DURATION', hierarchical: true, parent: %w(TYPE VIDEO)
-      config.add_facet_field 'VIDEO_HD', hierarchical: true, parent: %w(TYPE VIDEO)
-      config.add_facet_field 'MIME_TYPE', parent: 'TYPE'
+      config.add_facet_field 'IMAGE_ASPECTRATIO', hierarchical: true, parent: %w(TYPE IMAGE), limit: true
+      config.add_facet_field 'IMAGE_SIZE', hierarchical: true, parent: %w(TYPE IMAGE), limit: true
+      config.add_facet_field 'SOUND_DURATION', hierarchical: true, parent: %w(TYPE SOUND), limit: true
+      config.add_facet_field 'SOUND_HQ', hierarchical: true, parent: %w(TYPE SOUND), limit: true
+      config.add_facet_field 'TEXT_FULLTEXT', hierarchical: true, parent: %w(TYPE TEXT), limit: true
+      config.add_facet_field 'VIDEO_DURATION', hierarchical: true, parent: %w(TYPE VIDEO), limit: true
+      config.add_facet_field 'VIDEO_HD', hierarchical: true, parent: %w(TYPE VIDEO), limit: true
+      config.add_facet_field 'MIME_TYPE', parent: 'TYPE', limit: true
       config.add_facet_field 'MEDIA', boolean: { on: 'true', off: nil, default: :off }
       config.add_facet_field 'YEAR', range: true if ENV['FACET_YEAR_FIELD']
-      config.add_facet_field 'REUSABILITY'
-      config.add_facet_field 'COUNTRY', limit: 50
-      config.add_facet_field 'LANGUAGE', limit: 50
-      config.add_facet_field 'PROVIDER', limit: 50
-      config.add_facet_field 'DATA_PROVIDER', limit: 50
+      config.add_facet_field 'REUSABILITY', limit: true
+      config.add_facet_field 'COUNTRY', limit: true
+      config.add_facet_field 'LANGUAGE', limit: true
+      config.add_facet_field 'PROVIDER', limit: true
+      config.add_facet_field 'DATA_PROVIDER', limit: true
       # config.add_facet_field 'UGC', advanced: true, boolean: { on: nil, off: 'false', default: :on }
 
       # Send all facet field names to Solr.
